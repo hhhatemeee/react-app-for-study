@@ -1,0 +1,13 @@
+.sidebarList {
+  margin: 10vh 0;
+  display: flex;
+  flex-direction: column;
+}
+.sidebarTitle {
+  text-align: center;
+}
+.sidebarItemList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

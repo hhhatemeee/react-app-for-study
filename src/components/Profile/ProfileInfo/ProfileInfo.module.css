@@ -1,0 +1,9 @@
+.background {
+  width: 50vw;
+  margin: 10px;
+  border-radius: 10px;
+}
+.descriptionBlock {
+  display: flex;
+  padding: 10px;
+}

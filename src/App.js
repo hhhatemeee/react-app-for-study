@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import UsersContainers from './components/Users/UsersContainers';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="app-wrapper">
+        <HeaderContainer className='app-wrapper-header' store={props.store} />
+        <Navbar className='app-wrapper-navbar' sidebar={props.state.sidebar} />
+        <div className='app-wrapper-content'>
+          <Routes>
+            <Route path="/dialogs*" element={<DialogsContainer store={props.store} />} />
+            <Route path="/profile/:userId" element={<ProfileContainer store={props.store} />} />
+            <Route path="/users" element={<UsersContainers store={props.store} />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
