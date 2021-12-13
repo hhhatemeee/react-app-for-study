@@ -12,7 +12,7 @@ function App(props) {
     <BrowserRouter>
       <div className="app-wrapper">
         <HeaderContainer className='app-wrapper-header' store={props.store} />
-        <Navbar className='app-wrapper-navbar' sidebar={props.state.sidebar} />
+        <Navbar className='app-wrapper-navbar' sidebar={props.store.getState().sidebar} />
         <div className='app-wrapper-content'>
           <Routes>
             <Route path="/dialogs*" element={<DialogsContainer store={props.store} />} />
