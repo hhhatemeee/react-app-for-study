@@ -30,30 +30,11 @@ const Users = (props) => {
                         <div>
                             {u.followed
                                 ? <button className={s.followBtn} disabled={props.followingInProgress.some(id => id == u.id)}
-                                    onClick={() => {
-                                        props.toggleFollowingProgress(true, u.id)
-                                        usersAPI.unfollowUser(u.id)
-                                            .then(data => {
-                                                if (data.resultCode == 0) {
-                                                    props.toggleFollow(u.id)
-                                                }
-                                                props.toggleFollowingProgress(false, u.id)
-
-                                            })
-
-                                    }}>Отписаться</button>
+                                    onClick={() => props.unfollow(u.id)}
+                                >Отписаться</button>
                                 : <button disabled={props.followingInProgress.some(id => id == u.id)}
-                                    onClick={() => {
-                                        props.toggleFollowingProgress(true, u.id)
-                                        usersAPI.followUser(u.id)
-                                            .then(data => {
-                                                if (data.resultCode == 0) {
-                                                    props.toggleFollow(u.id)
-                                                }
-                                                props.toggleFollowingProgress(false, u.id)
-                                            })
-
-                                    }}>Подписаться</button>}
+                                    onClick={() => props.follow(u.id)}
+                                >Подписаться</button>}
                         </div>
                     </span>
                     <span className={s.info}>
