@@ -1,6 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import s from './Users.module.css'
+import * as axios from 'axios'
+import { usersAPI } from '../../api/api';
 
 const Users = (props) => {
 
@@ -27,8 +29,31 @@ const Users = (props) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button className={s.followBtn} onClick={() => props.toggleFollow(u.id)}>Отписаться</button>
-                                : <button onClick={() => props.toggleFollow(u.id)}>Подписаться</button>}
+                                ? <button className={s.followBtn} disabled={props.followingInProgress.some(id => id == u.id)}
+                                    onClick={() => {
+                                        props.toggleFollowingProgress(true, u.id)
+                                        usersAPI.unfollowUser(u.id)
+                                            .then(data => {
+                                                if (data.resultCode == 0) {
+                                                    props.toggleFollow(u.id)
+                                                }
+                                                props.toggleFollowingProgress(false, u.id)
+
+                                            })
+
+                                    }}>Отписаться</button>
+                                : <button disabled={props.followingInProgress.some(id => id == u.id)}
+                                    onClick={() => {
+                                        props.toggleFollowingProgress(true, u.id)
+                                        usersAPI.followUser(u.id)
+                                            .then(data => {
+                                                if (data.resultCode == 0) {
+                                                    props.toggleFollow(u.id)
+                                                }
+                                                props.toggleFollowingProgress(false, u.id)
+                                            })
+
+                                    }}>Подписаться</button>}
                         </div>
                     </span>
                     <span className={s.info}>
@@ -39,6 +64,7 @@ const Users = (props) => {
                         <span>
                             <div>{u.location != undefined ? u.location.city : 'Какая то страна'}</div>
                             <div>{u.location != undefined ? u.location.country : 'Какой то город'}</div>
+                            <div>{u.id}</div>
                         </span>
                     </span>
                 </div>

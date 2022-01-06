@@ -1,18 +1,17 @@
-import * as axios from 'axios'
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
+import { profileAPI } from '../../api/api'
 import { setUserData } from '../../redux/authReducer'
 import Header from './Header'
 
 const HeaderContainer = (props) => {
 
     useEffect(() => {
-        axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-            withCredentials: true
-        })
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    let { id, email, login } = res.data.data
+        profileAPI.getMyInfo().
+            then(data => {
+                if (data.resultCode === 0) {
+                    console.log(data)
+                    let { id, email, login } = data.data
                     props.setUserData(id, email, login)
                 }
             })

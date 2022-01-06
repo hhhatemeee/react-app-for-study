@@ -7,8 +7,6 @@ import Post from './Post/Post'
 
 const MyPosts = (props) => {
 
-
-
     const onAddPost = () => {
         props.addPost()
     }
