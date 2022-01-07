@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const ProfileStatus = (props) => {
 
@@ -22,6 +22,9 @@ const ProfileStatus = (props) => {
             }
         })
     }
+
+
+    console.log('kek')
     return (
         <div>
             {!state.editMode
