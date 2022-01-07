@@ -5,9 +5,10 @@ import s from './Profile.module.css'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 const Profile = (props) => {
     console.log(props.dispatch)
+    console.log(props.userId)
     return (
         <div className={s.content}>
-            <ProfileInfo profile={props.profile} />
+            <ProfileInfo profile={props.profile} status={props.status} updateStatusProfile={props.updateStatusProfile} />
             <MyPostsContainer />
         </div>
     )
