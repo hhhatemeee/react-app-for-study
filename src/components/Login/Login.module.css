@@ -3,6 +3,7 @@ input {
   font-size: 1.3rem;
   border-radius: 10px;
   border: 1px solid black;
+  outline: none;
 }
 
 button {
@@ -14,4 +15,9 @@ button {
 .errorText {
   color: red;
   margin-left: 4px;
+}
+.fullArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -4,7 +4,6 @@ import s from './Navbar.module.css'
 import Sidebar from './Sidebar/Sidebar'
 
 const Navbar = (props) => {
-    console.log(props)
     return (
         <nav className={s.nav}>
             <div className={s.item}>

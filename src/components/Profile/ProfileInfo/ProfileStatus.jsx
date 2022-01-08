@@ -14,7 +14,6 @@ const ProfileStatus = (props) => {
 
     const onChangeStatus = (e) => {
         let text = e.target.value
-        console.log(text)
         setState(prevState => {
             return {
                 ...prevState,
@@ -24,7 +23,6 @@ const ProfileStatus = (props) => {
     }
 
 
-    console.log('kek')
     return (
         <div>
             {!state.editMode

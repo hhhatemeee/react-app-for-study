@@ -2,21 +2,21 @@ import React from 'react'
 import s from './Dialogs.module.css'
 import DialogItem from './DialogItem/DialogItem'
 import Message from './Message/Message'
+import { Form, Formik, Field } from 'formik'
 import { Navigate } from 'react-router-dom'
-import { sendMessageCreator, updateNewMessageBodyCreator } from '../../redux/dialogsReducer'
 
 
 const Dialogs = (props) => {
 
     let state = props.dialogsPage
-
-    const SendMessage = () => {
-        props.sendMessage()
+    const initialValues = {
+        textMessage: ''
     }
-    const onNewMessageChange = (e) => {
-        let text = e.target.value
-        console.log(props.updateNewMessageBody)
-        props.updateNewMessageBody(text)
+    const onSubmit = (values, { setSubmitting }) => {
+        console.log(values.textMessage)
+        props.sendMessage(values.textMessage)
+        values.textMessage = ''
+        setSubmitting(false)
     }
 
     if (!props.isAuth) return <Navigate to={'/login'} />
@@ -30,15 +30,19 @@ const Dialogs = (props) => {
                 <div>
                     {state.messagesData.map(message => <Message key={message.id} text={message.text} />)}
                 </div>
-                <div>
-                    <div>
-                        <textarea value={state.newMessageBody}
-                            onChange={onNewMessageChange}></textarea>
-                    </div>
-                    <div>
-                        <button onClick={SendMessage}>Send</button>
-                    </div>
-                </div>
+                <Formik
+                    initialValues={initialValues}
+                    onSubmit={onSubmit}
+                >
+                    <Form>
+                        <div>
+                            <Field as='textarea' type='text' id='textMessage' name='textMessage'></Field>
+                        </div>
+                        <div>
+                            <button type='submit'>Send</button>
+                        </div>
+                    </Form>
+                </Formik>
             </div>
         </div >
     )

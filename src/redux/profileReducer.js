@@ -14,7 +14,6 @@ let initialState = {
         { id: 3, text: 'Третий пост', coontLikes: 9 },
         { id: 4, text: 'Четвертый пост', coontLikes: 8 }
     ],
-    newPostText: '',
     profile: null,
     status: ''
 }
@@ -25,20 +24,13 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST:
             let newPost = {
                 id: id,
-                text: state.newPostText,
+                text: action.textPost,
                 coontLikes: 0
             }
             id++
             return {
                 ...state,
-                newPostText: '',
                 postsData: [...state.postsData, newPost]
-            }
-
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
             }
         case SET_USER_PROFILE:
             return {
@@ -55,18 +47,13 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (textPost) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        textPost
     }
 }
 
-export const updateNewPostTextActionCreator = (text) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: text,
-    }
-}
 
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile: profile })
 
@@ -76,7 +63,6 @@ export const getUserProfile = (userId) => {
     return (dispatch) => {
         profileAPI.getProfile(userId)
             .then(data => {
-                console.log(data)
                 dispatch(setUserProfile(data))
             })
     }
@@ -84,10 +70,8 @@ export const getUserProfile = (userId) => {
 
 export const getStatusProfile = (userId) => {
     return (dispatch) => {
-        console.log(123123);
         profileAPI.getStatus(userId)
             .then(data => {
-                console.log(data);
                 dispatch(setTextStatus(data))
             })
     }
@@ -97,7 +81,6 @@ export const updateStatusProfile = (status) => {
         profileAPI.updateStatus(status)
             .then(data => {
                 if (data.resultCode === 0) {
-                    console.log(data);
                     dispatch(setTextStatus(status))
                 }
             })
