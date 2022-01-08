@@ -3,37 +3,40 @@ import { useFormik } from 'formik'
 import s from './Login.module.css'
 import * as yup from 'yup'
 
-const Login = () => {
-
+const Login = (props) => {
     const validationForm = yup.object().shape({
-        login: yup.string().typeError('Должна быть строкой').required('Обязательное поле'),
+        email: yup.string().typeError('Должна быть строкой').required('Обязательное поле'),
         password: yup.string().typeError('Должна быть строкой').required('Обязательное поле')
     })
 
     const formik = useFormik({
         initialValues: {
-            login: '',
-            password: ''
+            email: '',
+            password: '',
+            remember: false,
         },
         validationSchema: validationForm,
         onSubmit: values => {
-            console.log(values)
+            props.login(values)
         },
     })
     useEffect(() => {
-        console.log(formik.values)
+
     }, [formik.values])
     return (
         <div>
-            <h1>Login</h1>
+            <h1>email</h1>
             <div >
                 <form action="" onSubmit={formik.handleSubmit} style={{ display: 'flex', flexDirection: "column", maxWidth: '300px', margin: '5px' }}>
-                    <label for="login">Логин</label>
-                    <input type="text" id='login' name='login' onChange={formik.handleChange} value={formik.values.login} onBlur={formik.handleBlur} />
-                    {formik.touched.login && formik.errors.login ? <span>{formik.errors.login}</span> : null}
-                    <label for="password">Пароль</label>
-                    <input type="password" id='password' name='password' onChange={formik.handleChange} value={formik.values.password} onBlur={formik.handleBlur} />
-                    {formik.touched.password && formik.errors.password ? <span> {formik.errors.password}</span> : null}
+                    <label htmlFor="email">Логин</label>
+                    <input type="text" id='email' name='email' {...formik.getFieldProps('email')} />
+                    {formik.touched.email && formik.errors.email ? <span className={s.errorText}>{formik.errors.email}</span> : null}
+                    <label htmlFor="password">Пароль</label>
+                    <input type="password" id='password' name='password' {...formik.getFieldProps('email')} />
+                    {formik.touched.password && formik.errors.password ? <span className={s.errorText}> {formik.errors.password}</span> : null}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <input type="checkbox" id='remember' name='remember' onChange={formik.handleChange} value={formik.values.remember} />remember me
+                    </div>
                     <button type='submit'>Login</button>
                 </form>
             </div>

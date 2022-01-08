@@ -11,7 +11,7 @@ button {
   border: 1px solid gray;
   border-radius: 10px;
 }
-span {
+.errorText {
   color: red;
   margin-left: 4px;
 }

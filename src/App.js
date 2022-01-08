@@ -7,6 +7,7 @@ import UsersContainers from './components/Users/UsersContainers';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
+import LoginConatiner from './components/Login/LoginConatiner';
 
 function App(props) {
   return (
@@ -19,7 +20,7 @@ function App(props) {
             <Route path="/dialogs*" element={<DialogsContainer store={props.store} />} />
             <Route path="/profile/:userId" element={<ProfileContainer store={props.store} />} />
             <Route path="/users" element={<UsersContainers store={props.store} />} />
-            <Route path="/login" element={<Login store={props.store} />} />
+            <Route path="/login" element={<LoginConatiner store={props.store} />} />
           </Routes>
         </div>
       </div>
