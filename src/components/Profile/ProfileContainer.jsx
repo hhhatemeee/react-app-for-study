@@ -10,9 +10,11 @@ import { compose } from 'redux'
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId = this.props.match ? this.props.match.params.userId : null
+        console.log(123123123)
         if (!userId) {
-            userId = 2;
+            console.log(this.props.authorizedUserId)
+            userId = this.props.authorizedUserId;
         }
         this.props.getUserProfile(userId)
         this.props.getStatusProfile(userId)
@@ -29,12 +31,15 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.userId
 })
 
 const ProfileMatch = (props) => {
     let match = useMatch("/profile/:userId")
+    console.log(match)
     return <ProfileContainer {...props} match={match} />;
+
 }
 
 export default compose(connect(mapStateToProps, { getUserProfile, getStatusProfile, updateStatusProfile }), withAuthRedirect)

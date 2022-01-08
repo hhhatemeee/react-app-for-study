@@ -2,11 +2,10 @@ import React, { useEffect } from 'react'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import s from './Login.module.css'
 import * as yup from 'yup'
-import { useNavigate } from 'react-router'
+import { Navigate } from 'react-router'
 import TextError from '../Profile/MyPosts/TextError'
 
 const Login = (props) => {
-    let navigate = useNavigate()
     const validationForm = yup.object().shape({
         email: yup.string().typeError('Должна быть строкой').required('Обязательное поле'),
         password: yup.string().typeError('Должна быть строкой').required('Обязательное поле')
@@ -16,15 +15,17 @@ const Login = (props) => {
         password: '',
         remember: false,
     }
-    const onSubmit = (values, { setSubmitting }) => {
-        props.login(values)
+    const onSubmit = (values, { setSubmitting, setStatus }) => {
+        props.login(values, setStatus)
         values.email = ''
         values.password = ''
         values.remember = false
         setSubmitting(false)
-        setTimeout(() => navigate('/dialogs'), 1000)
     }
 
+    if (props.isAuth) {
+        return <Navigate to='/dialogs' />
+    }
 
     return (
         <div className={s.fullArea}>
@@ -33,6 +34,7 @@ const Login = (props) => {
                 initialValues={initialValues}
                 validationSchema={validationForm}
                 onSubmit={onSubmit}>
+
                 <Form action="" style={{ display: 'flex', flexDirection: "column", maxWidth: '300px', margin: '5px' }}>
                     <label htmlFor="email">Логин</label>
                     <Field type="text" id='email' name='email' />
@@ -43,8 +45,19 @@ const Login = (props) => {
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Field type="checkbox" id='remember' name='remember' />remember me
                     </div>
+                    <Field type='text' name='test'>
+                        {
+                            (props) => {
+                                const { form } = props
+                                return <span className={s.errorText}>{form.status ? form.status.error : null}</span>
+                            }
+                        }
+                    </Field>
+                    {/* <div>{status}</div> */}
+                    {/* {console.log(status)} */}
                     <button type='submit'>Login</button>
                 </Form>
+
             </Formik>
 
         </div >

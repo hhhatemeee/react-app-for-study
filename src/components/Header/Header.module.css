@@ -19,12 +19,12 @@
   text-decoration: none;
 }
 
-.loginBlock > span {
+.loginBlock > div > span {
   color: rgb(88, 88, 88);
   margin-left: 10px;
   cursor: pointer;
 }
-.loginBlock > span:hover,
+.loginBlock > div > span:hover,
 .loginBlock > a:hover {
   color: #000;
 }

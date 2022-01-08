@@ -8,7 +8,7 @@ let mapStateToPropsForRedirect = (state) => ({
 
 export const withAuthRedirect = (Component) => {
     let RedirectComponent = (props) => {
-        if (!props.isAuth) return setTimeout((<Navigate to='/login' />), 10)
+        if (!props.isAuth) return <Navigate to='/login' />
         return <Component {...props} />
     }
 

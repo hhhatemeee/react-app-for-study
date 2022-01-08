@@ -7,7 +7,7 @@ let initialState = {
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: true
 }
 
 
@@ -48,11 +48,14 @@ export const getMyName = () => (dispatch) => {
         })
 }
 
-export const login = ({ email, password, remember }) => (dispatch) => {
+export const login = ({ email, password, remember }, setStatus) => (dispatch) => {
     authAPI.login(email, password, remember).then(data => {
         if (data.resultCode === 0) {
             console.log('успешно');
             dispatch(setLogin(true))
+        } else {
+            let message = data.messages.length > 0 ? data.messages : 'Неизвестная ошибка'
+            setStatus({ error: message })
         }
     })
 }

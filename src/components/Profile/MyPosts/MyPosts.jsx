@@ -34,6 +34,7 @@ const MyPosts = (props) => {
                             {
                                 (props) => {
                                     const { field, meta } = props
+                                    console.log(props)
                                     return <input type="textPost" {...field} className={meta.touched && meta.error ? s.error : ''} />
                                 }
                             }
