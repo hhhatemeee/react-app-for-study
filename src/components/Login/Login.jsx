@@ -3,6 +3,7 @@ import { Form, Formik, Field, ErrorMessage } from 'formik'
 import s from './Login.module.css'
 import * as yup from 'yup'
 import { useNavigate } from 'react-router'
+import TextError from '../Profile/MyPosts/TextError'
 
 const Login = (props) => {
     let navigate = useNavigate()
@@ -35,10 +36,10 @@ const Login = (props) => {
                 <Form action="" style={{ display: 'flex', flexDirection: "column", maxWidth: '300px', margin: '5px' }}>
                     <label htmlFor="email">Логин</label>
                     <Field type="text" id='email' name='email' />
-                    <ErrorMessage style={{ color: 'red' }} name='email' />
+                    <ErrorMessage style={{ color: 'red' }} name='email' component={TextError} />
                     <label htmlFor="password">Пароль</label>
                     <Field type="password" id='password' name='password' />
-                    <ErrorMessage className={s.errorText} name='password' />
+                    <ErrorMessage className={s.errorText} name='password' component={TextError} />
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Field type="checkbox" id='remember' name='remember' />remember me
                     </div>
