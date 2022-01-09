@@ -2,10 +2,14 @@ import React, { useEffect } from 'react'
 import { Form, Formik, Field, ErrorMessage } from 'formik'
 import s from './Login.module.css'
 import * as yup from 'yup'
-import { Navigate } from 'react-router'
+import { Navigate, useNavigate } from 'react-router'
 import TextError from '../Profile/MyPosts/TextError'
 
 const Login = (props) => {
+    if (props.isAuth) {
+        return <Navigate to='/profile' />
+    }
+
     const validationForm = yup.object().shape({
         email: yup.string().typeError('Должна быть строкой').required('Обязательное поле'),
         password: yup.string().typeError('Должна быть строкой').required('Обязательное поле')
@@ -17,15 +21,16 @@ const Login = (props) => {
     }
     const onSubmit = (values, { setSubmitting, setStatus }) => {
         props.login(values, setStatus)
+        console.log('login')
+        props.initializedSuccess(false)
         values.email = ''
         values.password = ''
         values.remember = false
         setSubmitting(false)
+
     }
 
-    if (props.isAuth) {
-        return <Navigate to='/dialogs' />
-    }
+
 
     return (
         <div className={s.fullArea}>

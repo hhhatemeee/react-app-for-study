@@ -5,10 +5,6 @@ import Header from './Header'
 
 const HeaderContainer = (props) => {
 
-    useEffect(() => {
-        props.getMyName();
-    })
-
     return (
         <Header {...props} logout={props.logout} />
     )
@@ -19,4 +15,4 @@ const mapStateToProps = (state) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, { getMyName, logout })(HeaderContainer)
+export default connect(mapStateToProps, { logout })(HeaderContainer)

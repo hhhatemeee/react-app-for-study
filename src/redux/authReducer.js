@@ -1,4 +1,5 @@
 import { authAPI } from '../api/api';
+import { initializedSuccess } from './appReducer';
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_LOGIN = 'SET_LOGIN'
@@ -7,7 +8,7 @@ let initialState = {
     userId: null,
     email: null,
     login: null,
-    isAuth: true
+    isAuth: false
 }
 
 
@@ -38,11 +39,13 @@ const authReducer = (state = initialState, action) => {
 export const setUserData = (userId, email, login) => ({ type: SET_USER_DATA, data: { userId: userId, email: email, login: login } })
 export const setLogin = (auth) => ({ type: SET_LOGIN, auth })
 export const setLogout = (auth) => ({ type: SET_LOGOUT, auth })
+
 export const getMyName = () => (dispatch) => {
-    authAPI.getMyInfo().
+    return authAPI.getMyInfo().
         then(data => {
             if (data.resultCode === 0) {
                 let { id, email, login } = data.data
+                console.log(id, email, login);
                 dispatch(setUserData(id, email, login))
             }
         })
